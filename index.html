@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Playball&display=swap" rel="stylesheet">
+</head>
+<body>
+  <style>
+    body {
+      font-family: "Playball", cursive;
+      background-image: url('background.jpg');
+      background-size: 170%;
+      background-position-x: 50%;
+      background-position-y: 0;
+      margin-top: 20vh;
+    }
+    h1 {
+      font-size: 5vh;
+      width: 100%;
+      text-align: center;
+      color:rgb(255, 0, 43)
+    }
+    button {
+      font-family: "Playball", cursive;
+      background-color: rgb(255, 0, 140);
+      border: none;
+      font-size: 5vh;
+      padding: 2vh;
+      color: white;
+      cursor: pointer;
+      position: absolute;
+      bottom: 15vh;
+    }
+    #yes {
+      left: 15vw;
+    }
+    #no {
+      right: 15vw;
+    }
+    #gif {
+      display: block;
+      width: 70vw;
+      margin: auto;
+    }
+    @media screen and (min-width: 1000px) {
+      body {
+        background-size: 100%;
+        background-position-x: 0;
+        background-position-y: -90vh;
+        margin-top: 0;
+      }
+      h1 {
+        font-size: 10vh;
+      }
+      #gif {
+        width: 25vw;
+      }
+      button {
+        font-size: 5vh;
+        padding: 5vh;
+        bottom: 10vh;
+      }
+      #yes {
+        left: 30vw;
+      }
+      #no {
+        right: 30vw;
+      }
+    }
+  </style>
+  <h1>Are you wanna be my valentine</h1>
+  <button id="yes">Yes</button>
+  <button id="no">No</button>
+  <div id="image-div">
+    <img id="gif" src="giving-heart.gif" />
+  </div>
+
+  <script>
+    let body = document.querySelector('body');
+    let title = document.querySelector('h1');
+    let yesButton = document.querySelector('#yes');
+    let noButton = document.querySelector('#no');
+    let gif = document.querySelector('#gif');
+    let isNo = false;
+
+    // let bodyImages = [
+    //   '1.webp',
+    //   '2.jpg'
+    // ];
+    // let index = 0;
+    // let maxIndex = 1;
+    // setInterval(()=>{
+    //   (index < maxIndex) ? index++ : index = 0;
+    //   body.style.backgroundImage = `url(${bodyImages[index]})`;
+    // }, 3000);
+
+    let interval = null;
+    let count = 0;
+    let maxCount = 0;
+    let yesGifNames = [
+      'yes1',
+      // 'making-love',
+      'yes2',
+    ]
+    let noGifNames = [
+      'no1',
+      'no2',
+    ]
+
+    const yesCycle = () => {
+      count = 0;
+      maxCount = 14;
+      gif.src = `yes${[count]}.gif`;
+      clearInterval(interval);
+      interval = setInterval(() => {
+        (count < maxCount) ? count++ : count = 0;
+        gif.src = `yes${[count]}.gif`;
+      }, 2000);
+    }
+    const noCycle = () => {
+      count = 0;
+      maxCount = 6;      
+      gif.src = `no${[count]}.gif`;
+      clearInterval(interval);
+      interval = setInterval(() => {
+        (count < maxCount) ? count++ : count = 0;
+        gif.src = `no${[count]}.gif`;
+      }, 2000);
+    }
+
+    // HANDLERS
+    yesButton.addEventListener('click', (event) => {
+      title.innerText = 'I love you so much!!!';
+      yesCycle();
+    });
+    noButton.addEventListener('click', (event) => {
+      if(isNo){
+        let randomRight = Math.random()*40;
+        let randomBottom = Math.random()*40;
+        event.target.style.right = `${randomRight}vw`;
+        event.target.style.bottom = `${randomBottom}vh`;
+      }else{
+        isNo = true;
+        title.innerText = "Hey, don't even try!";
+        noCycle();
+        let randomRight = Math.random()*40;
+        let randomBottom = Math.random()*40;
+        event.target.style.right = `${randomRight}vw`;
+        event.target.style.bottom = `${randomBottom}vh`;        
+      }
+    });
+  </script>
+</body>
+</html>
